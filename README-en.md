@@ -2,11 +2,13 @@
 
 # Permission request framework
 
+[![](https://jitpack.io/v/yibaoshan/XXPermissions.svg)](https://jitpack.io/#yibaoshan/XXPermissions)
+
 ![](logo.png)
 
-* project address: [Github](https://github.com/getActivity/XXPermissions)
+* project address: [Github](https://github.com/yibaoshan/XXPermissions)
 
-* [Click here to download demo apk directly](https://github.com/getActivity/XXPermissions/releases/download/26.5/XXPermissions.apk)
+* [Click here to download demo apk directly](https://github.com/yibaoshan/XXPermissions/releases/download/v1.0.0-androidx/XXPermissions.apk)
 
 ![](picture/en/demo_request_permission_activity.jpg) ![](picture/en/demo_request_single_permission.jpg) ![](picture/en/demo_request_group_permission.jpg)
 
@@ -60,23 +62,30 @@ android {
 dependencies {
     // Device compatibility framework：https://github.com/getActivity/DeviceCompat
     implementation 'com.github.getActivity:DeviceCompat:1.0'
-    // Permission request framework：https://github.com/getActivity/XXPermissions
-    implementation 'com.github.getActivity:XXPermissions:26.5'
+    // Permission request framework：https://github.com/yibaoshan/XXPermissions
+    implementation 'com.github.yibaoshan:XXPermissions:v1.0.0-androidx'
 }
 ```
 
-#### Support library compatible
+#### AndroidX Support
 
-* If the project is based on **AndroidX** package, please in the item `gradle.properties` file added, if you have already joined, you can ignore it
+* This library has been fully migrated to **AndroidX**, please add the following configuration in the project `gradle.properties` file:
 
 ```text
 # Indicates the use of AndroidX
 android.useAndroidX = true
-# Indicates migration of third-party libraries to AndroidX
-android.enableJetifier = true
 ```
 
-* If the project is based on **Support** Packages do not need to be added to this configuration
+* **Important Note**: This library no longer supports Support library, only supports AndroidX environment
+
+#### Version Information
+
+* **v1.0.0-androidx**: Fully migrated to AndroidX version
+  - ✅ Removed all Support library dependencies
+  - ✅ Migrated to AndroidX annotations and components
+  - ✅ Optimized compilation performance, removed jetifier configuration
+  - ⚠️ **Breaking Change**: No longer supports Support Fragment, only supports App Fragment
+  - 📦 Usage: `implementation 'com.github.yibaoshan:XXPermissions:v1.0.0-androidx'`
 
 #### scoped storage
 

@@ -2,13 +2,15 @@
 
 # 权限请求框架
 
+[![](https://jitpack.io/v/yibaoshan/XXPermissions.svg)](https://jitpack.io/#yibaoshan/XXPermissions)
+
 ![](logo.png)
 
-* 项目地址：[Github](https://github.com/getActivity/XXPermissions)
+* 项目地址：[Github](https://github.com/yibaoshan/XXPermissions)
 
 * 博文地址：[一句代码搞定权限请求，从未如此简单](https://www.jianshu.com/p/c69ff8a445ed)
 
-* 可以扫码下载 Demo 进行演示或者测试，如果扫码下载不了的，[点击此处可直接下载](https://github.com/getActivity/XXPermissions/releases/download/26.5/XXPermissions.apk)
+* 可以扫码下载 Demo 进行演示或者测试，如果扫码下载不了的，[点击此处可直接下载](https://github.com/yibaoshan/XXPermissions/releases/download/v1.0.0-androidx/XXPermissions.apk)
 
 ![](picture/zh/download_demo_apk_qr_code.png)
 
@@ -66,23 +68,30 @@ android {
 dependencies {
     // 设备兼容框架：https://github.com/getActivity/DeviceCompat
     implementation 'com.github.getActivity:DeviceCompat:1.0'
-    // 权限请求框架：https://github.com/getActivity/XXPermissions
-    implementation 'com.github.getActivity:XXPermissions:26.5'
+    // 权限请求框架：https://github.com/yibaoshan/XXPermissions
+    implementation 'com.github.yibaoshan:XXPermissions:v1.0.0-androidx'
 }
 ```
 
-#### 支持库兼容
+#### AndroidX 支持
 
-* 如果项目是基于 **AndroidX** 库，请在项目 `gradle.properties` 文件中加入以下配置，如果已经加入则可以忽略
+* 本库已完全迁移到 **AndroidX**，请在项目 `gradle.properties` 文件中加入以下配置：
 
 ```text
 # 表示使用 AndroidX
 android.useAndroidX = true
-# 表示将第三方库迁移到 AndroidX
-android.enableJetifier = true
 ```
 
-* 如果项目是基于 **Support** 库则不需要加入此配置
+* **重要说明**：本库不再支持 Support 库，仅支持 AndroidX 环境
+
+#### 版本说明
+
+* **v1.0.0-androidx**：完全迁移到 AndroidX 的版本
+  - ✅ 移除所有 Support 库依赖
+  - ✅ 迁移到 AndroidX 注解和组件
+  - ✅ 优化编译性能，移除 jetifier 配置
+  - ⚠️ **Breaking Change**：不再支持 Support Fragment，仅支持 App Fragment
+  - 📦 使用方法：`implementation 'com.github.yibaoshan:XXPermissions:v1.0.0-androidx'`
 
 #### 分区存储
 
@@ -237,10 +246,10 @@ XXPermissions.setCheckMode(false);
 
 #### 同类权限请求框架之间的对比
 
-|     适配细节    | [XXPermissions](https://github.com/getActivity/XXPermissions)  | [AndPermission](https://github.com/yanzhenjie/AndPermission) | [PermissionX](https://github.com/guolindev/PermissionX) |  [AndroidUtilCode-PermissionUtils](https://github.com/Blankj/AndroidUtilCode)   | [PermissionsDispatcher](https://github.com/permissions-dispatcher/PermissionsDispatcher) | [RxPermissions](https://github.com/tbruyelle/RxPermissions) |  [EasyPermissions](https://github.com/googlesamples/easypermissions) |  [Dexter](https://github.com/Karumi/Dexter) |
+|     适配细节    | [XXPermissions](https://github.com/yibaoshan/XXPermissions)  | [AndPermission](https://github.com/yanzhenjie/AndPermission) | [PermissionX](https://github.com/guolindev/PermissionX) |  [AndroidUtilCode-PermissionUtils](https://github.com/Blankj/AndroidUtilCode)   | [PermissionsDispatcher](https://github.com/permissions-dispatcher/PermissionsDispatcher) | [RxPermissions](https://github.com/tbruyelle/RxPermissions) |  [EasyPermissions](https://github.com/googlesamples/easypermissions) |  [Dexter](https://github.com/Karumi/Dexter) |
 | :--------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: | :------------: |
-|    对应版本  |  26.5 |  2.0.3  |  1.8.1    |  1.31.0    |   4.9.2  |  0.12   |  3.0.0   |  6.2.3   |
-|    issues 数   |  [![](https://img.shields.io/github/issues/getActivity/XXPermissions.svg)](https://github.com/getActivity/XXPermissions/issues)  |  [![](https://img.shields.io/github/issues/yanzhenjie/AndPermission.svg)](https://github.com/yanzhenjie/AndPermission/issues)  |  [![](https://img.shields.io/github/issues/guolindev/PermissionX.svg)](https://github.com/guolindev/PermissionX/issues)  |  [![](https://img.shields.io/github/issues/Blankj/AndroidUtilCode.svg)](https://github.com/Blankj/AndroidUtilCode/issues)  |  [![](https://img.shields.io/github/issues/permissions-dispatcher/PermissionsDispatcher.svg)](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues)  |  [![](https://img.shields.io/github/issues/tbruyelle/RxPermissions.svg)](https://github.com/tbruyelle/RxPermissions/issues)  |  [![](https://img.shields.io/github/issues/googlesamples/easypermissions.svg)](https://github.com/googlesamples/easypermissions/issues)  |  [![](https://img.shields.io/github/issues/Karumi/Dexter.svg)](https://github.com/Karumi/Dexter/issues)  |
+|    对应版本  |  v1.0.0-androidx |  2.0.3  |  1.8.1    |  1.31.0    |   4.9.2  |  0.12   |  3.0.0   |  6.2.3   |
+|    issues 数   |  [![](https://img.shields.io/github/issues/yibaoshan/XXPermissions.svg)](https://github.com/yibaoshan/XXPermissions/issues)  |  [![](https://img.shields.io/github/issues/yanzhenjie/AndPermission.svg)](https://github.com/yanzhenjie/AndPermission/issues)  |  [![](https://img.shields.io/github/issues/guolindev/PermissionX.svg)](https://github.com/guolindev/PermissionX/issues)  |  [![](https://img.shields.io/github/issues/Blankj/AndroidUtilCode.svg)](https://github.com/Blankj/AndroidUtilCode/issues)  |  [![](https://img.shields.io/github/issues/permissions-dispatcher/PermissionsDispatcher.svg)](https://github.com/permissions-dispatcher/PermissionsDispatcher/issues)  |  [![](https://img.shields.io/github/issues/tbruyelle/RxPermissions.svg)](https://github.com/tbruyelle/RxPermissions/issues)  |  [![](https://img.shields.io/github/issues/googlesamples/easypermissions.svg)](https://github.com/googlesamples/easypermissions/issues)  |  [![](https://img.shields.io/github/issues/Karumi/Dexter.svg)](https://github.com/Karumi/Dexter/issues)  |
 |  框架维护状态 |**维护中**|  停止维护 | 停止维护 |  停止维护 | 停止维护 | 停止维护 | 停止维护 | 停止维护 |
 |      读取应用列表权限     |  ✅  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |
 |       闹钟提醒权限       |  ✅  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |  ❌  |
