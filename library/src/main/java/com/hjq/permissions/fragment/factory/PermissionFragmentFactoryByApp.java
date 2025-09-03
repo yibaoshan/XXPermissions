@@ -2,8 +2,8 @@ package com.hjq.permissions.fragment.factory;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.hjq.permissions.fragment.IFragmentMethod;
 import com.hjq.permissions.core.OnPermissionFragmentCallback;
 import com.hjq.permissions.fragment.impl.app.PermissionAppFragmentByRequestPermissions;

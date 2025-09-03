@@ -1,6 +1,6 @@
 package com.hjq.permissions.manager;
 
-import android.support.annotation.IntRange;
+import androidx.annotation.IntRange;
 import com.hjq.permissions.XXPermissions;
 import java.util.ArrayList;
 import java.util.List;

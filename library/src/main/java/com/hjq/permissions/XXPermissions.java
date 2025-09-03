@@ -3,13 +3,13 @@ package com.hjq.permissions;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.hjq.permissions.fragment.factory.PermissionFragmentFactory;
 import com.hjq.permissions.fragment.factory.PermissionFragmentFactoryByApp;
-import com.hjq.permissions.fragment.factory.PermissionFragmentFactoryBySupport;
+
 import com.hjq.permissions.manifest.AndroidManifestParser;
 import com.hjq.permissions.permission.PermissionChannel;
 import com.hjq.permissions.permission.base.IPermission;
@@ -55,9 +55,7 @@ public final class XXPermissions {
         return new XXPermissions(appFragment);
     }
 
-    public static XXPermissions with(@NonNull android.support.v4.app.Fragment supportFragment) {
-        return new XXPermissions(supportFragment);
-    }
+
 
     /**
      * 设置是否开启错误检测模式（全局设置）
@@ -125,9 +123,7 @@ public final class XXPermissions {
     @Nullable
     private Fragment mAppFragment;
 
-    /** Support 库中的 Fragment 对象 */
-    @Nullable
-    private android.support.v4.app.Fragment mSupportFragment;
+
 
     /** 权限请求拦截器 */
     @Nullable
@@ -150,10 +146,7 @@ public final class XXPermissions {
         mContext = appFragment.getActivity();
     }
 
-    private XXPermissions(@NonNull android.support.v4.app.Fragment supportFragment) {
-        mSupportFragment = supportFragment;
-        mContext = supportFragment.getActivity();
-    }
+
 
     /**
      * 添加单个权限
@@ -227,7 +220,7 @@ public final class XXPermissions {
 
         final Fragment appFragment = mAppFragment;
 
-        final android.support.v4.app.Fragment supportFragment = mSupportFragment;
+
 
         final OnPermissionInterceptor permissionInterceptor = mPermissionInterceptor;
 
@@ -244,8 +237,6 @@ public final class XXPermissions {
             PermissionChecker.checkActivityStatus(activity);
             if (appFragment != null) {
                 PermissionChecker.checkAppFragmentStatus(appFragment);
-            } else if (supportFragment != null) {
-                PermissionChecker.checkSupportFragmentStatus(supportFragment);
             }
             // 检查传入的权限是否正常
             PermissionChecker.checkPermissionList(activity, requestList, AndroidManifestParser.getAndroidManifestInfo(context));
@@ -267,12 +258,7 @@ public final class XXPermissions {
         }
 
         final PermissionFragmentFactory<?, ?> fragmentFactory;
-        if (supportFragment != null) {
-            if (PermissionUtils.isFragmentUnavailable(supportFragment)) {
-                return;
-            }
-            fragmentFactory = generatePermissionFragmentFactory(activity, supportFragment);
-        } else if (appFragment != null) {
+        if (appFragment != null) {
             if (PermissionUtils.isFragmentUnavailable(appFragment)) {
                 return;
             }
@@ -522,101 +508,25 @@ public final class XXPermissions {
         });
     }
 
-    /* android.support.v4.app.Fragment */
 
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment) {
-        startPermissionActivity(supportFragment, new ArrayList<>());
-    }
-
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment,
-                                               @NonNull IPermission... permissions) {
-        startPermissionActivity(supportFragment, PermissionUtils.asArrayList(permissions));
-    }
-
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment,
-                                               @NonNull List<IPermission> permissions) {
-        startPermissionActivity(supportFragment, permissions, REQUEST_CODE);
-    }
-
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment,
-                                               @NonNull List<IPermission> permissions,
-                                               @IntRange(from = 1, to = 65535) int requestCode) {
-        if (PermissionUtils.isFragmentUnavailable(supportFragment)) {
-            return;
-        }
-        Activity activity = supportFragment.getActivity();
-        if (PermissionUtils.isActivityUnavailable(activity) || PermissionUtils.isFragmentUnavailable(supportFragment)) {
-            return;
-        }
-        if (permissions.isEmpty()) {
-            StartActivityAgent.startActivity(supportFragment, PermissionSettingPage.getCommonPermissionSettingIntent(activity));
-            return;
-        }
-        StartActivityAgent.startActivityForResult(supportFragment,
-            PermissionApi.getBestPermissionSettingIntent(activity, permissions, true), requestCode);
-    }
-
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment,
-                                               @NonNull IPermission permission,
-                                               @Nullable OnPermissionCallback callback) {
-        startPermissionActivity(supportFragment, PermissionUtils.asArrayList(permission), callback);
-    }
-
-    public static void startPermissionActivity(@NonNull android.support.v4.app.Fragment supportFragment,
-                                               @NonNull List<IPermission> permissions,
-                                               @Nullable OnPermissionCallback callback) {
-        if (PermissionUtils.isFragmentUnavailable(supportFragment)) {
-            return;
-        }
-        Activity activity = supportFragment.getActivity();
-        if (PermissionUtils.isActivityUnavailable(activity) || PermissionUtils.isFragmentUnavailable(supportFragment)) {
-            return;
-        }
-        if (permissions.isEmpty()) {
-            StartActivityAgent.startActivity(supportFragment, PermissionSettingPage.getCommonPermissionSettingIntent(activity));
-            return;
-        }
-        PermissionFragmentFactory<?, ?> fragmentFactory = generatePermissionFragmentFactory(activity, supportFragment);
-        fragmentFactory.createAndCommitFragment(permissions, PermissionChannel.START_ACTIVITY_FOR_RESULT, () -> {
-            if (PermissionUtils.isActivityUnavailable(activity) || PermissionUtils.isFragmentUnavailable(supportFragment)) {
-                return;
-            }
-            dispatchPermissionPageCallback(activity, permissions, callback);
-        });
-    }
 
     /**
      * 创建 Fragment 工厂
      */
     @NonNull
     private static PermissionFragmentFactory<?, ?> generatePermissionFragmentFactory(@NonNull Activity activity) {
-        return generatePermissionFragmentFactory(activity, null, null);
+        return generatePermissionFragmentFactory(activity, null);
     }
+
+
 
     @NonNull
     private static PermissionFragmentFactory<?, ?> generatePermissionFragmentFactory(@NonNull Activity activity,
-                                                                                     @Nullable android.support.v4.app.Fragment supportFragment) {
-        return generatePermissionFragmentFactory(activity, supportFragment, null);
-    }
-
-    @NonNull
-    private static PermissionFragmentFactory<?, ?> generatePermissionFragmentFactory(@NonNull Activity activity,
-                                                                                     @Nullable Fragment appFragment) {
-        return generatePermissionFragmentFactory(activity, null, appFragment);
-    }
-
-    private static PermissionFragmentFactory<?, ?> generatePermissionFragmentFactory(@NonNull Activity activity,
-                                                                                     @Nullable android.support.v4.app.Fragment supportFragment,
                                                                                      @Nullable Fragment appFragment) {
         final PermissionFragmentFactory<?, ?> fragmentFactory;
-        if (supportFragment != null) {
-            fragmentFactory = new PermissionFragmentFactoryBySupport(supportFragment.getActivity(), supportFragment.getChildFragmentManager());
-        } else if (appFragment != null) {
+        if (appFragment != null) {
             // appFragment.getChildFragmentManager 需要 minSdkVersion >=  17
             fragmentFactory = new PermissionFragmentFactoryByApp(appFragment.getActivity(), appFragment.getChildFragmentManager());
-        } else if (activity instanceof FragmentActivity) {
-            FragmentActivity fragmentActivity = ((FragmentActivity) activity);
-            fragmentFactory = new PermissionFragmentFactoryBySupport(fragmentActivity, fragmentActivity.getSupportFragmentManager());
         } else {
             fragmentFactory = new PermissionFragmentFactoryByApp(activity, activity.getFragmentManager());
         }

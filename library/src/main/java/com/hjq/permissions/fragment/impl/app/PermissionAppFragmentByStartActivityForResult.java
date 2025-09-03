@@ -1,7 +1,7 @@
 package com.hjq.permissions.fragment.impl.app;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.hjq.permissions.core.PermissionChannelImpl;
 import com.hjq.permissions.core.PermissionChannelImplByStartActivityForResult;
 

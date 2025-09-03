@@ -12,9 +12,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Gravity;
@@ -149,7 +149,7 @@ public final class PermissionDescription implements OnPermissionDescription {
         // 为什么不直接用 App 包 AlertDialog 来显示，而是两套规则？因为 App 包 AlertDialog 是系统自带的类，不同 Android 版本展现的样式可能不太一样
         // 如果这个 Android 版本比较低，那么这个对话框的样式就会变得很丑，准确来讲也不能说丑，而是当时系统的 UI 设计就是那样，它只是跟随系统的样式而已
         if (activity instanceof AppCompatActivity) {
-            mPermissionDialog = new android.support.v7.app.AlertDialog.Builder(activity)
+            mPermissionDialog = new androidx.appcompat.app.AlertDialog.Builder(activity)
                 .setTitle(dialogTitle)
                 .setMessage(dialogMessage)
                 // 对话框一定要设置成不可取消的

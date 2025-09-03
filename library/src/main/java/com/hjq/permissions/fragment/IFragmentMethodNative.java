@@ -2,9 +2,9 @@ package com.hjq.permissions.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.hjq.permissions.start.IStartActivityDelegate;
 
 /**
